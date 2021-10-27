@@ -28,6 +28,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var whoseTurn: UILabel!
     
     
+    
+    
+    var mBoardArray: [UIImageView] = [];
+    
+    
     let HUMAN_PLAYER = "X"
     let COMPUTER_PLAYER = "O"
     var board: [String] = ["0","1","2","3","4","5","6","7","8"]
@@ -44,7 +49,7 @@ class ViewController: UIViewController {
     
     
     
-    @IBAction func NewGame(_ sender: UIButton) {
+    @IBAction func NewGame(_ sender: Any) {
         S1.image = nil
         S2.image = nil
         S3.image = nil
@@ -55,15 +60,29 @@ class ViewController: UIViewController {
         S8.image = nil
         S9.image = nil
         
-        print("TTT_ACTIVITY: Starting New Game")
+        board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        
+        whoseTurn.text = "Player X's Turn"
+        
+        win = 0
         turn = HUMAN_PLAYER
-        board = ["0", "1", "2", "3", "4", "5", "6","7", "8"]
     }
     
 
     override func viewDidLoad() {
        super.viewDidLoad()
         
+        
+        mBoardArray.append(S1)
+        mBoardArray.append(S2)
+        mBoardArray.append(S3)
+        mBoardArray.append(S4)
+        mBoardArray.append(S5)
+        mBoardArray.append(S6)
+        mBoardArray.append(S7)
+        mBoardArray.append(S8)
+        mBoardArray.append(S9)
+
        
         let tapGesture1 = UITapGestureRecognizer(target: self, action:
                             #selector(ViewController.img1Clicked))
@@ -144,6 +163,8 @@ class ViewController: UIViewController {
                         S9.addGestureRecognizer(tapGesture9)
 
                 
+    
+        
     }
     
     
@@ -152,21 +173,25 @@ class ViewController: UIViewController {
     @objc func img1Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S1.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER && S1.image == nil){
+                mBoardArray[0].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[0] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S1.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
@@ -174,147 +199,175 @@ class ViewController: UIViewController {
     @objc func img2Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S2.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S2.image == nil){
+                mBoardArray[1].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[1] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S2.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img3Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S3.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S3.image == nil){
+                mBoardArray[2].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[2] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S3.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img4Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S4.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S4.image == nil){
+                mBoardArray[3].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[3] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S4.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img5Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S5.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S5.image == nil){
+                mBoardArray[4].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[4] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S5.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img6Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S6.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S6.image == nil){
+                mBoardArray[5].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[5] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S6.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img7Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S7.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S7.image == nil){
+                mBoardArray[6].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[6] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S7.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
     @objc func img8Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S8.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S8.image == nil){
+                mBoardArray[7].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[7] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S8.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
     
@@ -322,28 +375,206 @@ class ViewController: UIViewController {
     @objc func img9Clicked(){
          // This code is for testing the GUI, will change in real game code
         
-            if(turn == HUMAN_PLAYER){
-            S9.image = #imageLiteral(resourceName: "x_img.png")
-             board[0] = HUMAN_PLAYER
-            turn = COMPUTER_PLAYER
-                whoseTurn.text = "Computer’s Turn"
-                print("TTT_ACTIVITY: ")
+        if(win == 0){
+            
+            if(turn == HUMAN_PLAYER  && S9.image == nil){
+                mBoardArray[8].image = #imageLiteral(resourceName: "x_img.png")
+                turn = COMPUTER_PLAYER
+                whoseTurn.text = "Computer's Turn"
+                board[8] = HUMAN_PLAYER
                 displayBoard()
-             }
-            else{
-            S9.image = #imageLiteral(resourceName: "o_img.png")
-             board[0] = COMPUTER_PLAYER
-            turn = HUMAN_PLAYER
-                self.whoseTurn.text = "Human’s Turn"
-                print("TTT_ACTIVITY: ")
-                displayBoard()
+                checkForWinner()
+                showWinStatus()
+                if(win == 0){
+                    getComputerMove()
+                    turn = self.HUMAN_PLAYER
+                    whoseTurn.text = "Human's Turn"
+                    displayBoard()
+                    checkForWinner()
+                    showWinStatus()
+            }
+                }
             }
         }
         
-        func displayBoard()
+        func displayBoard()    {
+                print(board[0] + " | " + board[1] + " | " + board[2]);
+                print("-----------");
+                print(board[3] + " | " + board[4] + " | " + board[5]);
+                print("-----------");
+                print(board[6] + " | " + board[7] + " | " + board[8]);
+            }
+        
+        // Check for a winner.  Return
+        //  0 if no winner or tie yet
+        //  1 if it's a tie
+        //  2 if X won
+        //  3 if O won
+    func checkForWinner()
+    {
+        
+        // Check horizontal wins
+        for i in stride(from: 0, to: 8, by: 3)
         {
-            print("I am in displayBoard")
+            //print(i)
+            if (board[i] == HUMAN_PLAYER && board[i+1] == HUMAN_PLAYER && board[i+2] == HUMAN_PLAYER)
+            {
+                win = 2
+                return
+            }
+            
+            if (board[i] == COMPUTER_PLAYER && board[i+1] == COMPUTER_PLAYER && board[i+2] == COMPUTER_PLAYER)
+            {
+                win = 3
+                return
+            }
+        }
+        
+        // Check vertical wins
+        for i in 0 ... 2
+        {
+            if (board[i] == HUMAN_PLAYER && board[i+3] == HUMAN_PLAYER && board[i+6] == HUMAN_PLAYER)
+            {
+                win = 2
+                return
+            }
+            
+            if (board[i] == COMPUTER_PLAYER && board[i+3] == COMPUTER_PLAYER && board[i+6] == COMPUTER_PLAYER)
+            {
+                win =  3
+                return
+            }
+        }
+        
+        // Check for diagonal wins
+        if ((board[0] == HUMAN_PLAYER && board[4] == HUMAN_PLAYER && board[8] == HUMAN_PLAYER) || (board[2] == HUMAN_PLAYER && board[4] == HUMAN_PLAYER && board[6] == HUMAN_PLAYER))
+        {
+            win = 2
+            return
+        }
+        
+        if ((board[0] == COMPUTER_PLAYER && board[4] == COMPUTER_PLAYER && board[8] == COMPUTER_PLAYER) || (board[2] == COMPUTER_PLAYER && board[4] == COMPUTER_PLAYER && board[6] == COMPUTER_PLAYER))
+        {
+            win = 3
+            return
+        }
+        
+        // Check for tie
+        for i in 0...BOARD_SIZE-1
+        {
+            // If we find a number, then no one has won yet
+            if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER)
+            {
+                win = 0
+                return
+            }
+        }
+        
+        // If we make it through the previous loop, all places are taken, so it's a tie
+        win = 1
+    }
+    
+        func showWinStatus(){
+            
+            print("win = " + String(win))
+            if(win == 3){
+                print("Computer Wins!!")
+                whoseTurn.text = "Computer Wins !!!"
+            }
+            
+            if(win == 2){
+                print("Human Wins!!")
+                whoseTurn.text = "Human Wins !!!"
+            }
+            
+            
+            if(win == 1){
+                print("It a Tie!!")
+                whoseTurn.text = "It's a Tie !!!"
+            }
+            
+            
             
         }
+        
+    func getComputerMove()
+        {
+            
+             
+            
+            // First see if there's a move O can make to win
+            for i in 0 ... BOARD_SIZE-1 {
+                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+                    let curr = board[i]
+                    board[i] = COMPUTER_PLAYER
+                    
+                    checkForWinner()
+                    
+                    if (win == 3) {
+                        print("Computer is making a winning moving to " + String((i)))
+                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+                        
+                        return
+                        
+                        
+                    }
+                    else
+                    {
+                        
+                        board[i] = curr;
+                    }
+                    
+                }
+            }
+            
+            
+            // See if there's a move O can make to block X from winning
+            for i in 0 ... BOARD_SIZE-1 {
+                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+                    let curr = board[i];   // Save the current number
+                    board[i] = HUMAN_PLAYER
+                    
+                    
+                    checkForWinner()
+                    if (win == 2) {
+                        print("Computer is making a blocking moving to " + String((i)))
+                        board[i] = self.COMPUTER_PLAYER;
+                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+                        
+                        return
+                    }
+                        
+                        
+                    else{
+                        
+                        board[i] = curr}
+                }
+            }
+            
+            
+            var count = 0
+            // Generate random move
+            repeat
+            {
+                count += 1
+                move  = Int(arc4random_uniform(9))
+                print("random move is " + String(move))
+            } while ((board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER) && count <= 9)
+            
+            if(board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER){
+                return
+            }
+            else{
+                
+                print("Computer is making a random moving to " + String((move)))
+                
+                board[move] = COMPUTER_PLAYER
+                mBoardArray[move].image = #imageLiteral(resourceName: "o_img.png")
+                
+                
+                return
+            }
+        }
+
 }
 
