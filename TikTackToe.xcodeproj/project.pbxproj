@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3A2299273345F600D89D32 /* sword.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A3A2298273345F600D89D32 /* sword.mp3 */; };
+		8A3A229B273345FB00D89D32 /* swish.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A3A229A273345FB00D89D32 /* swish.mp3 */; };
+		8AD2836227430B8B000C1FA5 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD2836127430B8B000C1FA5 /* appstore.png */; };
 		8ADAFC2726FBEF46007E37BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFC2626FBEF46007E37BC /* AppDelegate.swift */; };
 		8ADAFC2926FBEF46007E37BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFC2826FBEF46007E37BC /* SceneDelegate.swift */; };
 		8ADAFC2B26FBEF46007E37BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADAFC2A26FBEF46007E37BC /* ViewController.swift */; };
@@ -16,9 +19,14 @@
 		8ADAFC3D26FBF031007E37BC /* ttt_board.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ADAFC3A26FBF031007E37BC /* ttt_board.png */; };
 		8ADAFC3E26FBF031007E37BC /* x_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ADAFC3B26FBF031007E37BC /* x_img.png */; };
 		8ADAFC3F26FBF031007E37BC /* o_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ADAFC3C26FBF031007E37BC /* o_img.png */; };
+		8AF84100272A0ECD002C1A1D /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF840FF272A0ECD002C1A1D /* GlobalVars.swift */; };
+		8AF84102272A0F03002C1A1D /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF84101272A0F03002C1A1D /* ScoreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A3A2298273345F600D89D32 /* sword.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sword.mp3; sourceTree = "<group>"; };
+		8A3A229A273345FB00D89D32 /* swish.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swish.mp3; sourceTree = "<group>"; };
+		8AD2836127430B8B000C1FA5 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore.png; path = ../appstore.png; sourceTree = "<group>"; };
 		8ADAFC2326FBEF46007E37BC /* TikTackToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikTackToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8ADAFC2626FBEF46007E37BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8ADAFC2826FBEF46007E37BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +38,8 @@
 		8ADAFC3A26FBF031007E37BC /* ttt_board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ttt_board.png; sourceTree = "<group>"; };
 		8ADAFC3B26FBF031007E37BC /* x_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x_img.png; sourceTree = "<group>"; };
 		8ADAFC3C26FBF031007E37BC /* o_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = o_img.png; sourceTree = "<group>"; };
+		8AF840FF272A0ECD002C1A1D /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
+		8AF84101272A0F03002C1A1D /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,9 @@
 				8ADAFC3B26FBF031007E37BC /* x_img.png */,
 				8ADAFC3A26FBF031007E37BC /* ttt_board.png */,
 				8ADAFC3C26FBF031007E37BC /* o_img.png */,
+				8AD2836127430B8B000C1FA5 /* appstore.png */,
+				8A3A229A273345FB00D89D32 /* swish.mp3 */,
+				8A3A2298273345F600D89D32 /* sword.mp3 */,
 				8ADAFC2526FBEF46007E37BC /* TikTackToe */,
 				8ADAFC2426FBEF46007E37BC /* Products */,
 			);
@@ -72,6 +85,8 @@
 				8ADAFC2F26FBEF48007E37BC /* Assets.xcassets */,
 				8ADAFC3126FBEF48007E37BC /* LaunchScreen.storyboard */,
 				8ADAFC3426FBEF48007E37BC /* Info.plist */,
+				8AF840FF272A0ECD002C1A1D /* GlobalVars.swift */,
+				8AF84101272A0F03002C1A1D /* ScoreViewController.swift */,
 			);
 			path = TikTackToe;
 			sourceTree = "<group>";
@@ -133,11 +148,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3A2299273345F600D89D32 /* sword.mp3 in Resources */,
 				8ADAFC3326FBEF48007E37BC /* LaunchScreen.storyboard in Resources */,
 				8ADAFC3F26FBF031007E37BC /* o_img.png in Resources */,
 				8ADAFC3026FBEF48007E37BC /* Assets.xcassets in Resources */,
 				8ADAFC2E26FBEF46007E37BC /* Main.storyboard in Resources */,
+				8A3A229B273345FB00D89D32 /* swish.mp3 in Resources */,
 				8ADAFC3E26FBF031007E37BC /* x_img.png in Resources */,
+				8AD2836227430B8B000C1FA5 /* appstore.png in Resources */,
 				8ADAFC3D26FBF031007E37BC /* ttt_board.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +167,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AF84100272A0ECD002C1A1D /* GlobalVars.swift in Sources */,
 				8ADAFC2B26FBEF46007E37BC /* ViewController.swift in Sources */,
+				8AF84102272A0F03002C1A1D /* ScoreViewController.swift in Sources */,
 				8ADAFC2726FBEF46007E37BC /* AppDelegate.swift in Sources */,
 				8ADAFC2926FBEF46007E37BC /* SceneDelegate.swift in Sources */,
 			);

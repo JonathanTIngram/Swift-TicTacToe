@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -29,8 +30,13 @@ class ViewController: UIViewController {
     
     
     
+    //Sound Variables
+    var Xsound: AVAudioPlayer?
+    var Ysound: AVAudioPlayer?
+    
     
     var mBoardArray: [UIImageView] = [];
+
     
     
     let HUMAN_PLAYER = "X"
@@ -44,9 +50,41 @@ class ViewController: UIViewController {
     var currentImage: UIImageView!
     var boardNum: Int!
     
+    /****************************** * GAME DIFICULTY VAR * ** ******************************/
+    var gameDifficulty: Int!
+    
+    var level: String!
+
     
     
     
+    
+    
+    @IBAction func GameSettings(_ sender: Any) {
+        
+        let easy = "Easy"
+        let medium = "Medium"
+        let hard = "Hard"
+        
+        let ac = UIAlertController(title: "Game Settings", message: "Select a Difficulty", preferredStyle: .actionSheet)
+        
+        let easyAction = UIAlertAction(title: easy, style: .default, handler: { action in
+        self.setDifficulty(difficulty: 1) })
+        
+        ac.addAction(easyAction)
+        
+        let mediumAction = UIAlertAction(title: medium, style: .default, handler: { action in
+        self.setDifficulty(difficulty: 2) })
+        
+        ac.addAction(mediumAction)
+        
+        let hardAction = UIAlertAction(title: hard, style: .default, handler: { action in
+        self.setDifficulty(difficulty: 3) })
+        
+        ac.addAction(hardAction)
+        
+        present(ac, animated: true, completion: nil)
+    }
     
     
     @IBAction func NewGame(_ sender: Any) {
@@ -68,6 +106,36 @@ class ViewController: UIViewController {
         turn = HUMAN_PLAYER
     }
     
+    
+    
+    /****************************** * GAME DIFICULTY HANDLER * ** *****************************/
+    func setDifficulty(difficulty: Int){
+        
+        
+        gameDifficulty = difficulty
+        
+        switch difficulty{
+            
+        case 1:
+            level = "Easy"
+            
+        case 2:
+            level = "Medium"
+            
+        case 3:
+            level = "Expert"
+            
+        default:
+            level = "Easy"
+        }
+        
+        
+        print("TTT_ACTIVITY: Game Difficulty Level Now Set To: " + level);
+    }
+    
+    
+    
+    
 
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -82,6 +150,8 @@ class ViewController: UIViewController {
         mBoardArray.append(S7)
         mBoardArray.append(S8)
         mBoardArray.append(S9)
+        
+        gameDifficulty = 1
 
        
         let tapGesture1 = UITapGestureRecognizer(target: self, action:
@@ -167,6 +237,32 @@ class ViewController: UIViewController {
         
     }
     
+    func playX() {
+        let path = Bundle.main.path(forResource: "sword.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+        do {
+        
+            Xsound = try AVAudioPlayer(contentsOf: url)
+            Xsound?.play()
+        } catch {
+        // couldn't load file :(
+            print("Can't load the file")
+        }
+    }
+    
+    func playY() {
+        let path = Bundle.main.path(forResource: "swish.mp3", ofType:nil)!
+        let url = URL(fileURLWithPath: path)
+        do {
+        
+            Ysound = try AVAudioPlayer(contentsOf: url)
+            Ysound?.play()
+        } catch {
+        // couldn't load file :(
+            print("Can't load the file")
+        }
+    }
+    
     
 
 
@@ -176,6 +272,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER && S1.image == nil){
+                playX();
                 mBoardArray[0].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -184,16 +281,20 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
-            }
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
                 }
             }
         }
+    }
     
     
     @objc func img2Clicked(){
@@ -202,6 +303,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S2.image == nil){
+                playX();
                 mBoardArray[1].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -210,12 +312,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -227,6 +333,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S3.image == nil){
+                playX()
                 mBoardArray[2].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -235,12 +342,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -252,6 +363,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S4.image == nil){
+                playX();
                 mBoardArray[3].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -260,12 +372,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -277,6 +393,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S5.image == nil){
+                playX()
                 mBoardArray[4].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -285,12 +402,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY()
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -302,6 +423,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S6.image == nil){
+                playX();
                 mBoardArray[5].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -310,12 +432,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY()
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -327,6 +453,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S7.image == nil){
+                playX();
                 mBoardArray[6].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -335,12 +462,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -352,6 +483,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S8.image == nil){
+                playX();
                 mBoardArray[7].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -360,12 +492,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -378,6 +514,7 @@ class ViewController: UIViewController {
         if(win == 0){
             
             if(turn == HUMAN_PLAYER  && S9.image == nil){
+                playX();
                 mBoardArray[8].image = #imageLiteral(resourceName: "x_img.png")
                 turn = COMPUTER_PLAYER
                 whoseTurn.text = "Computer's Turn"
@@ -386,12 +523,16 @@ class ViewController: UIViewController {
                 checkForWinner()
                 showWinStatus()
                 if(win == 0){
-                    getComputerMove()
-                    turn = self.HUMAN_PLAYER
-                    whoseTurn.text = "Human's Turn"
-                    displayBoard()
-                    checkForWinner()
-                    showWinStatus()
+                    let when = DispatchTime.now() + 1;
+                    DispatchQueue.main.asyncAfter(deadline: when){
+                        self.playY();
+                        self.getComputerMove()
+                        self.turn = self.HUMAN_PLAYER
+                        self.whoseTurn.text = "Human's Turn"
+                        self.displayBoard()
+                        self.checkForWinner()
+                        self.showWinStatus()
+                    }
             }
                 }
             }
@@ -472,6 +613,9 @@ class ViewController: UIViewController {
         
         // If we make it through the previous loop, all places are taken, so it's a tie
         win = 1
+        
+        //update tie count
+
     }
     
         func showWinStatus(){
@@ -480,78 +624,31 @@ class ViewController: UIViewController {
             if(win == 3){
                 print("Computer Wins!!")
                 whoseTurn.text = "Computer Wins !!!"
+                GlobalVars.sharedManager.computerWins += 1;
             }
             
             if(win == 2){
                 print("Human Wins!!")
                 whoseTurn.text = "Human Wins !!!"
+                GlobalVars.sharedManager.humanWins += 1;
             }
             
             
             if(win == 1){
                 print("It a Tie!!")
                 whoseTurn.text = "It's a Tie !!!"
+                GlobalVars.sharedManager.tieCount += 1;
             }
+            
+            return 
             
             
             
         }
-        
-    func getComputerMove()
-        {
-            
-             
-            
-            // First see if there's a move O can make to win
-            for i in 0 ... BOARD_SIZE-1 {
-                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
-                    let curr = board[i]
-                    board[i] = COMPUTER_PLAYER
-                    
-                    checkForWinner()
-                    
-                    if (win == 3) {
-                        print("Computer is making a winning moving to " + String((i)))
-                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
-                        
-                        return
-                        
-                        
-                    }
-                    else
-                    {
-                        
-                        board[i] = curr;
-                    }
-                    
-                }
-            }
-            
-            
-            // See if there's a move O can make to block X from winning
-            for i in 0 ... BOARD_SIZE-1 {
-                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
-                    let curr = board[i];   // Save the current number
-                    board[i] = HUMAN_PLAYER
-                    
-                    
-                    checkForWinner()
-                    if (win == 2) {
-                        print("Computer is making a blocking moving to " + String((i)))
-                        board[i] = self.COMPUTER_PLAYER;
-                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
-                        
-                        return
-                    }
-                        
-                        
-                    else{
-                        
-                        board[i] = curr}
-                }
-            }
-            
-            
+    
+    
+    func getRandomMove()
+    {
             var count = 0
             // Generate random move
             repeat
@@ -560,21 +657,249 @@ class ViewController: UIViewController {
                 move  = Int(arc4random_uniform(9))
                 print("random move is " + String(move))
             } while ((board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER) && count <= 9)
-            
+
             if(board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER){
                 return
             }
             else{
-                
+
                 print("Computer is making a random moving to " + String((move)))
-                
+
                 board[move] = COMPUTER_PLAYER
                 mBoardArray[move].image = #imageLiteral(resourceName: "o_img.png")
-                
-                
+
+
                 return
             }
+    }
+    
+    func getWinningMove()
+    {
+        // First see if there's a move O can make to win
+        for i in 0 ... BOARD_SIZE-1 {
+            if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+                let curr = board[i]
+                board[i] = COMPUTER_PLAYER
+
+                checkForWinner()
+
+                if (win == 3) {
+                    print("Computer is making a winning moving to " + String((i)))
+                    mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+
+                    return
+
+
+                }
+                else
+                {
+
+                    board[i] = curr;
+                }
+
+            }
         }
+
+        var count = 0
+        // Generate random move
+        repeat
+        {
+            count += 1
+            move  = Int(arc4random_uniform(9))
+            print("random move is " + String(move))
+        } while ((board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER) && count <= 9)
+
+        if(board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER){
+            return
+        }
+        else{
+
+            print("Computer is making a random moving to " + String((move)))
+
+            board[move] = COMPUTER_PLAYER
+            mBoardArray[move].image = #imageLiteral(resourceName: "o_img.png")
+
+
+            return
+        }
+    }
+    
+    func getBlockingMove()
+    {
+            // First see if there's a move O can make to win
+            for i in 0 ... BOARD_SIZE-1 {
+                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+                    let curr = board[i]
+                    board[i] = COMPUTER_PLAYER
+
+                    checkForWinner()
+
+                    if (win == 3) {
+                        print("Computer is making a winning moving to " + String((i)))
+                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+
+                        return
+
+
+                    }
+                    else
+                    {
+
+                        board[i] = curr;
+                    }
+
+                }
+            }
+
+
+            // See if there's a move O can make to block X from winning
+            for i in 0 ... BOARD_SIZE-1 {
+                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+                    let curr = board[i];   // Save the current number
+                    board[i] = HUMAN_PLAYER
+
+
+                    checkForWinner()
+                    if (win == 2) {
+                        print("Computer is making a blocking moving to " + String((i)))
+                        board[i] = self.COMPUTER_PLAYER;
+                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+
+                        return
+                    }
+
+
+                    else{
+
+                        board[i] = curr}
+                }
+            }
+
+
+            var count = 0
+            // Generate random move
+            repeat
+            {
+                count += 1
+                move  = Int(arc4random_uniform(9))
+                print("random move is " + String(move))
+            } while ((board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER) && count <= 9)
+
+            if(board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER){
+                return
+            }
+            else{
+
+                print("Computer is making a random moving to " + String((move)))
+
+                board[move] = COMPUTER_PLAYER
+                mBoardArray[move].image = #imageLiteral(resourceName: "o_img.png")
+
+
+                return
+            }
+ 
+    }
+    
+    func getComputerMove()
+    {
+        
+        switch level{
+            
+        case "Easy":
+            getRandomMove();
+            
+        case "Medium":
+            getWinningMove()
+            
+        case "Expert":
+            getBlockingMove()
+            
+        default:
+            getRandomMove()
+        }
+        
+        return
+    }
+        
+//    func getComputerMove()
+//    {
+//
+//
+//
+//            // First see if there's a move O can make to win
+//            for i in 0 ... BOARD_SIZE-1 {
+//                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+//                    let curr = board[i]
+//                    board[i] = COMPUTER_PLAYER
+//
+//                    checkForWinner()
+//
+//                    if (win == 3) {
+//                        print("Computer is making a winning moving to " + String((i)))
+//                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+//
+//                        return
+//
+//
+//                    }
+//                    else
+//                    {
+//
+//                        board[i] = curr;
+//                    }
+//
+//                }
+//            }
+//
+//
+//            // See if there's a move O can make to block X from winning
+//            for i in 0 ... BOARD_SIZE-1 {
+//                if (board[i] != HUMAN_PLAYER && board[i] != COMPUTER_PLAYER) {
+//                    let curr = board[i];   // Save the current number
+//                    board[i] = HUMAN_PLAYER
+//
+//
+//                    checkForWinner()
+//                    if (win == 2) {
+//                        print("Computer is making a blocking moving to " + String((i)))
+//                        board[i] = self.COMPUTER_PLAYER;
+//                        mBoardArray[i].image = #imageLiteral(resourceName: "o_img.png")
+//
+//                        return
+//                    }
+//
+//
+//                    else{
+//
+//                        board[i] = curr}
+//                }
+//            }
+//
+//
+//            var count = 0
+//            // Generate random move
+//            repeat
+//            {
+//                count += 1
+//                move  = Int(arc4random_uniform(9))
+//                print("random move is " + String(move))
+//            } while ((board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER) && count <= 9)
+//
+//            if(board[move] == HUMAN_PLAYER || board[move] == COMPUTER_PLAYER){
+//                return
+//            }
+//            else{
+//
+//                print("Computer is making a random moving to " + String((move)))
+//
+//                board[move] = COMPUTER_PLAYER
+//                mBoardArray[move].image = #imageLiteral(resourceName: "o_img.png")
+//
+//
+//                return
+//            }
+//    }
 
 }
 
